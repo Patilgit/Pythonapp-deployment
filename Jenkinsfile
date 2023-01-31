@@ -1,19 +1,17 @@
 pipeline {
     agent any
-    environment {
-        
-        def git_branch = 'master'
-        def git_url = 'https://github.com/avidere/Pythonapp-deployment.git'
-    }
+   
     stages {
         stage('Git Checkout') {
             steps {
-                script {
-                    git branch: "${git_branch}", url: "${git_url}"
-                    echo 'Git Checkout Completed'
+               git 'https://github.com/Patilgit/Pythonapp-deployment.git'
                 }
             }
-        }
+        stage('pre-requesits') {    
+            steps{
+                sh 'pip3 install -r requirements.txt'
+                 }
+        }     
         stage('Build  and Test Code') {
             steps {
                 script {
@@ -22,10 +20,10 @@ pipeline {
                 }
             }
         }    
-		 stage('Build Image') {
+        stage('Build Image') {
       steps {
         echo "===Building docker image==="
-        sh 'docker build -t darshan626/new-repo:latest1 .'
+        sh 'docker build -t darshan626/new-repo:latest2 .'
       } 
     }
       stage('Docker Build and Push') {
@@ -46,5 +44,5 @@ pipeline {
              sh 'kubectl apply -f db_configmap.yaml'
                }
       }
-    }
+}
 }
