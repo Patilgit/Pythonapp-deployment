@@ -24,7 +24,7 @@ pipeline {
         }    
 		stage('Build Docker image and push To Docker hub'){
             steps{
-                withCredentials([usernamePassword(credentialsId: 'Docker_hub', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')]) {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')]) {
                 script{
                     sshagent(['Docker-Server']) {
                           //sh "ssh -o StrictHostKeyChecking=no -l dockeradmin 172.31.2.23 sudo rm -r Pythonapp-deployment"
