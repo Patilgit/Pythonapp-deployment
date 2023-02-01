@@ -5,7 +5,7 @@ metadata:
   labels:
     apps: test
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
   - name: tcp-31081-5000
     nodePort: 31081
